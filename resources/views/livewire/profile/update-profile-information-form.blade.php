@@ -9,6 +9,7 @@ use Livewire\Volt\Component;
 new class extends Component
 {
     public string $name = '';
+    public string $subdomain = '';
     public string $email = '';
 
     /**
@@ -17,6 +18,7 @@ new class extends Component
     public function mount(): void
     {
         $this->name = Auth::user()->name;
+        $this->subdomain = Auth::user()->subdomain;
         $this->email = Auth::user()->email;
     }
 
@@ -29,6 +31,7 @@ new class extends Component
 
         $validated = $this->validate([
             'name' => ['required', 'string', 'max:255'],
+            'subdomain' => ['required', 'string', 'max:255', Rule::unique(User::class)->ignore($user->id)],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->ignore($user->id)],
         ]);
 
@@ -78,6 +81,13 @@ new class extends Component
             <x-input-label for="name" :value="__('Name')" />
             <x-text-input wire:model="name" id="name" name="name" type="text" class="mt-1 block w-full" required autofocus autocomplete="name" />
             <x-input-error class="mt-2" :messages="$errors->get('name')" />
+        </div>
+
+        <div>
+            <x-input-label for="subdomain" :value="__('Subdomain')" />
+            <x-text-input wire:model="subdomain" id="subdomain" name="subdomain" type="text" class="mt-1 block w-full" required autocomplete="subdomain" disabled />
+            <a href="{{ route('tenant-welcome', $subdomain) }}" target="_blank" class="text-sm text-blue-500 hover:text-blue-700">{{$subdomain}}.{{ parse_url(config('app.url'), PHP_URL_HOST) }}</a>
+            <x-input-error class="mt-2" :messages="$errors->get('subdomain')" />
         </div>
 
         <div>
