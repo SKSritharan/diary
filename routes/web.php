@@ -19,10 +19,17 @@ Route::domain('{subdomain}.diary.test')->group(function () {
         } catch (Exception $e) {
             throw new NotFoundHttpException("Subdomain '{$subdomain}' not found");
         }
-    });
+    })->name('tenant-welcome');
 });
 
-Route::view('/', 'welcome');
+Route::get('/', function (){
+
+    $notes = Note::whereNotNull('published_at')
+        ->latest()
+        ->paginate(15);
+
+    return view('welcome', compact('notes'));
+});
 
 
 Route::view('manage-notes', 'dashboard')
