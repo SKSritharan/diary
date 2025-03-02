@@ -10,7 +10,11 @@ class Note extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'title', 'content'];
+    protected $fillable = ['user_id', 'title', 'content', 'published_at'];
+
+    protected $casts = [
+        'published_at' => 'datetime',
+    ];
 
     public function user(): BelongsTo
     {

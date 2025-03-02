@@ -18,13 +18,17 @@ $createNote = function () {
     $this->content = '';
 };
 
+$publishNote = function (Note $note) {
+    $note->update(['published_at' => now()]);
+};
+
 $deleteNote = function (Note $note) {
     $note->delete();
 };
 
-
 with(function () {
-    $notes = Note::latest()->paginate(15);
+    $notes = Note::where('user_id', Auth::user()->id)
+        ->latest()->paginate(15);
     return ['notes' => $notes];
 });
 ?>
@@ -63,22 +67,21 @@ with(function () {
                                 <div>
                                     <h3 class="text-lg font-medium leading-6 text-gray-900">{{ $note->title }}</h3>
                                     <p class="mt-1 max-w-2xl text-sm text-gray-500">{{ $note->user->name }} ·
-                                        {{ $note->created_at->format('M d, Y') }}</p>
+                                        {{ $note->published_at ? $note->published_at->format('M d, Y') : 'Not published yet'}}</p>
                                 </div>
                                 <div class="flex items-center">
                                     <span
                                         class="inline-flex px-2 mr-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">
-                                        {{ $note->created_at->diffForHumans() }}
+                                        {{ $note->published_at? $note->published_at->diffForHumans() : 'Not published yet' }}
                                     </span>
+                                    <button wire:click="publishNote({{ $note->id }})"
+                                            class="text-white bg-green-600 hover:bg-green-700 rounded-md px-2 py-1 text-xs font-semibold">
+                                        Publish
+                                    </button>
                                     <button wire:click="deleteNote({{ $note->id }})"
-                                            class="text-red-600 hover:text-red-900"
+                                            class="text-white bg-red-600 hover:bg-red-700 rounded-md px-2 py-1 text-xs font-semibold ml-2"
                                             wire:confirm="Are you sure you want to delete this note?">
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                             xmlns="http://www.w3.org/2000/svg">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
-                                            </path>
-                                        </svg>
+                                        Delete
                                     </button>
                                 </div>
                             </div>
