@@ -1,66 +1,103 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# **Diary**
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+---
 
-## About Laravel
+**Diary** is a robust personal journaling platform built with Laravel that allows users to create, manage, and publish their notes within individual subdomains. This application demonstrates subdomain-based multi-tenancy architecture with Laravel, providing each user with their own personalized space at their subdomain. Users can create, publish, and delete notes, with published notes appearing on both the main welcome page and the user's subdomain welcome page. Guest users can also view published notes without authentication.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+The platform includes authentication features powered by **Laravel Breeze**, allowing users to register themselves with a unique subdomain. This project was built to test and demonstrate knowledge of multi-tenancy, subdomain routing, and CRUD operations in Laravel.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+![Diary](public/775_1x.png)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## **Features**
 
-## Learning Laravel
+1. **Multi-Tenancy with Subdomains**:
+    - Each user gets a unique subdomain (e.g., `username.diary.test`).
+    - Subdomain-based routing ensures users access their personalized journaling space.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+2. **Note Management**:
+    - Users can create, edit, and delete notes.
+    - Notes can be published or kept private.
+    - Published notes are visible to both the user and guest visitors.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+3. **Public and Private Notes**:
+    - Published notes appear on the main welcome page and the user's subdomain welcome page.
+    - Private notes are only visible to the authenticated user.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+4. **Authentication**:
+    - Built with **Laravel Breeze** for seamless user registration and login.
+    - Users can register with a unique subdomain during signup.
 
-## Laravel Sponsors
+5. **Responsive Design**:
+    - The platform is designed to be fully responsive, ensuring a great experience on all devices.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
 
-### Premium Partners
+## **Technologies Used**
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+- **Laravel** (PHP Framework)
+- **Laravel Breeze** (Authentication)
+- **MySQL** (Database)
+- **Tailwind CSS** (Styling)
+- **Blade & Livewire** (Frontend)
+- **Subdomain Routing** (Multi-Tenancy)
 
-## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## **Installation**
 
-## Code of Conduct
+Follow these steps to set up the project locally:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/SKSritharan/diary.git
+   cd diary
+   ```
 
-## Security Vulnerabilities
+2. **Install Dependencies**:
+   ```bash
+   composer install
+   npm install
+   ```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+3. **Set Up Environment File**:
+    - Copy `.env.example` to `.env` and update the database credentials:
+      ```bash
+      cp .env.example .env
+      ```
+    - Generate an application key:
+      ```bash
+      php artisan key:generate
+      ```
 
-## License
+4. **Configure Subdomains**:
+    - Update your local development environment (e.g., Laravel Valet or Homestead) to support wildcard subdomains.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+5. **Run Migrations**:
+   ```bash
+   php artisan migrate
+   ```
+
+6. **Compile Assets**:
+   ```bash
+   npm run dev
+   ```
+
+7. **Start the Development Server**:
+   ```bash
+   php artisan serve
+   ```
+
+8. **Access the Application**:
+    - Visit `http://diary.test` to access the main welcome page.
+    - Register a new user with a unique subdomain (e.g., `john.diary.test`).
+
+## **Acknowledgments**
+
+- **Laravel** for providing an excellent PHP framework.
+- **Laravel Breeze** for simplifying authentication.
+- **Tailwind CSS** for making styling effortless.
+- **Livewire** for interactive components.
+
+
+Thank you for checking out **Diary**! 🚀
+---
+
