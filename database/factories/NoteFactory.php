@@ -21,6 +21,7 @@ class NoteFactory extends Factory
             'user_id' => 1,
             'title' => $this->faker->sentence,
             'content' => $this->faker->paragraph,
+            'published_at' => $this->faker->dateTime,
         ];
     }
 }
